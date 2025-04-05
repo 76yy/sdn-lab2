@@ -38,7 +38,10 @@ class L2Switch(app_manager.OSKenApp):
         dp = msg.datapath
         ofp = dp.ofproto
         parser = dp.ofproto_parser
-
+	if msg.buffer_id==ofp.OFP_NO_BUFFER:
+		data=msg.data
+	else
+	    data=None
         actions = [parser.OFPActionOutput(ofp.OFPP_FLOOD)]
         out = parser.OFPPacketOut(
             datapath=dp, buffer_id=msg.buffer_id, in_port=msg.match['in_port'],actions=actions, data=msg.data)
